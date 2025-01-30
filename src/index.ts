@@ -23,16 +23,16 @@ function RIGHT_JOIN<
 >(
     table_left: Array<L>, table_right: Array<R>,
     condition: (row_left: L, row_right: R) => boolean
-): Array<L & Partial<R>> {
+): Array<Partial<L> & R> {
 
-    const joined_table = table_left.map(row_left => {
+    // const joined_table = table_left.map(row_left => {
 
-        const found_row_right: Partial<R> = table_right.find(row_right => condition(row_left, row_right)) ?? {}
+    //     const found_row_right: Partial<R> = table_right.find(row_right => condition(row_left, row_right)) ?? {}
 
-        return { ...found_row_right, ...row_left }
-    })
+    //     return { ...found_row_right, ...row_left }
+    // })
 
-    return joined_table
+    // return joined_table
 }
 
 
