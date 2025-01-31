@@ -17,25 +17,31 @@ export const persons: Array<Person> = [
         id: 1,
         name: "Charles",
         age: 5,
-        city_id: 1,
+        city_id: 2,
     },
     {
         id: 2,
         name: "Henry",
         age: 10,
-        city_id: 2,
+        city_id: 3,
     },
     {
         id: 3,
         name: "Peter",
         age: 15,
-        city_id: 3,
+        city_id: 1,
     },
     {
         id: 4,
         name: "Lucas",
         age: 20,
-        city_id: 2,
+        city_id: 1,
+    },
+    {
+        id: 4,
+        name: "Lucas",
+        age: 20,
+        city_id: 5,
     },
 ]
 

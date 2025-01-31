@@ -82,6 +82,11 @@ const left_joined_table = LEFT_JOIN(
     (person, city) => person.city_id == city.id
 )
 
-console.log({ left_joined_table })
-left_joined_table[0].location_name
+const right_joined_table = RIGHT_JOIN(
+    persons, 
+    cities, 
+    (person, city) => person.city_id == city.id
+)
+
+console.log({ left_joined_table, right_joined_table })
 
