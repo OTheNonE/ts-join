@@ -35,7 +35,7 @@ export const persons: Array<Person> = [
         id: 4,
         name: "Lucas",
         age: 20,
-        city_id: 4,
+        city_id: 2,
     },
 ]
 
@@ -54,5 +54,10 @@ export const cities: Array<City> = [
         id: 3,
         location_name: "India",
         continent: "Asia"
-    }
+    },
+    {
+        id: 4,
+        location_name: "Nigeria",
+        continent: "Afrika"
+    },
 ]
