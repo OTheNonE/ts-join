@@ -76,17 +76,44 @@ function OUTER_JOIN<L extends Object, R extends Object>(
     return result;
 }
 
-const left_joined_table = LEFT_JOIN(
-    persons, 
-    cities, 
-    (person, city) => person.city_id == city.id
-)
+const comparators = {
+    eq: (a: any, b: any) => {
+        return a == b
+    }
+}
 
-const right_joined_table = RIGHT_JOIN(
-    persons, 
-    cities, 
-    (person, city) => person.city_id == city.id
-)
+type Comparators = typeof comparators
 
-console.log({ left_joined_table, right_joined_table })
+function PLAYGROUND<L extends Object, R extends Object>(
+    table_left: Array<L>,
+    table_right: Array<R>,
+    condition: (columns: [L, R], comparators: Comparators) => boolean
+) {
 
+    const first_row_left = table_left.at(0)
+    const first_row_right = table_right.at(0)
+
+    if (!first_row_left || !first_row_right) return
+
+    const first_row_left_properties_accessed: Array<string | symbol> = []
+    const first_row_right_properties_accessed: Array<string | symbol> = []
+
+    function createProxy<T extends Object>(param: T, log: Array<string | symbol>): T {
+        return new Proxy(param, {
+            get(target, prop, receiver) {
+                log.push(prop)
+                return Reflect.get(target, prop, receiver)
+            }
+        })
+    }
+
+    const first_row_left_proxy = createProxy(first_row_left, first_row_left_properties_accessed)
+    const first_row_right_proxy = createProxy(first_row_right, first_row_right_properties_accessed)
+
+    const result = condition([first_row_left_proxy, first_row_right_proxy], comparators)
+
+    return { result, first_row_left_properties_accessed, first_row_right_properties_accessed }
+}
+
+
+console.log(PLAYGROUND(persons, cities, ([person, city], { eq }) => eq(person.city_id, city.id)))
