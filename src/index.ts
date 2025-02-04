@@ -76,6 +76,8 @@ function OUTER_JOIN<L extends Object, R extends Object>(
     return result;
 }
 
+
+
 const comparators = {
     eq: (a: any, b: any) => {
         return a == b
@@ -109,7 +111,7 @@ function PLAYGROUND<L extends Object, R extends Object>(
             }
         })
     }
-
+    
     const comparators = {
         eq: (a: any, b: any) => {
             return a == b
