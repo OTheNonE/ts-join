@@ -79,6 +79,9 @@ function OUTER_JOIN<L extends Object, R extends Object>(
 const comparators = {
     eq: (a: any, b: any) => {
         return a == b
+    },
+    and: (...statements: Array<any>) => {
+        return statements.every(statement => statement)
     }
 }
 
@@ -107,6 +110,15 @@ function PLAYGROUND<L extends Object, R extends Object>(
         })
     }
 
+    const comparators = {
+        eq: (a: any, b: any) => {
+            return a == b
+        },
+        and: (...statements: Array<any>) => {
+            return statements.every(statement => statement)
+        }
+    }
+
     const first_row_left_proxy = createProxy(first_row_left, first_row_left_properties_accessed)
     const first_row_right_proxy = createProxy(first_row_right, first_row_right_properties_accessed)
 
@@ -116,4 +128,8 @@ function PLAYGROUND<L extends Object, R extends Object>(
 }
 
 
-console.log(PLAYGROUND(persons, cities, ([person, city], { eq }) => eq(person.city_id, city.id)))
+console.log(PLAYGROUND(
+    persons, 
+    cities, 
+    ([person, city], { eq, and }) => and(eq(person.city_id, city.id), eq(person.city_id, city.id))
+))
